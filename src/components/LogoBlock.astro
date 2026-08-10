@@ -1,6 +1,7 @@
 ---
 import caspLogo from "@/assets/CASP_logo.svg";
 import caspLogoWhite from "@/assets/CASP_logo_white.svg";
+import { SITE_NAME } from "@/site.config";
 
 interface Props {
   variant?: "light" | "dark";
@@ -11,7 +12,7 @@ const onDark = variant === "dark";
 ---
 
 <a
-  aria-label="CGIAR Climate Data Hub home"
+  aria-label={`${SITE_NAME} home`}
   href="/"
   class:list={["logo-block", { dark: onDark }]}
 >
@@ -21,7 +22,7 @@ const onDark = variant === "dark";
     src={onDark ? caspLogoWhite.src : caspLogo.src}
     width="117"
   >
-  <span class="wordmark">Climate&nbsp;Data&nbsp;Hub</span>
+  <span class="wordmark">{SITE_NAME}</span>
 </a>
 
 <style>

@@ -1,6 +1,6 @@
 ---
 import PagefindConfig from "astro-pagefind/components/PagefindConfig.astro";
-import { GITHUB_URL } from "@/site.config";
+import { GITHUB_URL, SITE_NAME } from "@/site.config";
 import LogoBlock from "./LogoBlock.astro";
 
 const LEARN = [
@@ -95,11 +95,7 @@ const isActive = (href: string) => path.startsWith(href);
 
     <a class="btn btn-ghost btn-cta cta" href="/contribute/">Contribute</a>
 
-    <a
-      aria-label="CGIAR Climate Data Hub on GitHub"
-      class="gh"
-      href={GITHUB_URL}
-    >
+    <a aria-label={`${SITE_NAME} on GitHub`} class="gh" href={GITHUB_URL}>
       <svg
         aria-hidden="true"
         fill="currentColor"
