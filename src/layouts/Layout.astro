@@ -5,7 +5,11 @@ import Footer from "@/components/Footer.astro";
 import JsonLd from "@/components/JsonLd.astro";
 import Navigation from "@/components/Navigation.astro";
 import ScrollProgress from "@/components/ScrollProgress.astro";
-import { SITE_DESCRIPTION, SITE_NAME } from "@/site.config";
+import {
+  SITE_DESCRIPTION,
+  SITE_NAME,
+  SITE_PUBLISHER_NAME,
+} from "@/site.config";
 
 interface Props {
   title: string;
@@ -41,7 +45,7 @@ const siteGraph = {
     {
       "@type": "Organization",
       "@id": `${site}#organization`,
-      name: `CGIAR ${SITE_NAME}`,
+      name: SITE_PUBLISHER_NAME,
       url: site,
       parentOrganization: {
         "@type": "Organization",

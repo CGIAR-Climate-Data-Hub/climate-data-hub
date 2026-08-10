@@ -1,6 +1,7 @@
 // Site-wide settings
 //
 export const SITE_NAME = "Data Hub";
+export const SITE_PUBLISHER_NAME = "CGIAR Climate Action Data Hub";
 export const SITE_DESCRIPTION =
   "A catalog and documentation hub for climate action datasets.";
 export const SITE_URL = "https://cgiar-climate-data-hub.github.io";
