@@ -53,37 +53,32 @@ const essentials = [
 const PATHS = [
   {
     href: "/catalog/",
-    glyph: "search",
     label: "Find a specific dataset",
     cue: "Search & filter",
   },
   {
     href: "/tutorials/",
-    glyph: "book",
     label: "Learn how to use the data",
     cue: "Runnable tutorials",
   },
   {
     href: "/in-use/",
-    glyph: "layers",
     label: "See it working in the field",
     cue: "Use cases",
   },
   {
     href: "/contribute/",
-    glyph: "upload",
     label: "Contribute data or docs",
     cue: "Add to the Hub",
   },
   {
     href: "/ai/",
-    glyph: "spark",
     label: "Use the Hub with AI",
     cue: "Skills & agent access",
   },
 ];
 
-const TRY_CHIPS = ["livestock", "crop production", "gridded", "exposure"];
+const POPULAR = ["livestock", "crop production", "exposure"];
 
 const PRINCIPLES = [
   [
@@ -103,15 +98,6 @@ const PRINCIPLES = [
     "COG and Zarr: query data where it lives, or stream just the window you need — no bespoke plumbing.",
   ],
 ];
-
-const GLYPHS: Record<string, string> = {
-  search: "M11 4a7 7 0 1 1 0 14 7 7 0 0 1 0-14Zm10 17-4.3-4.3",
-  book: "M4 5a2 2 0 0 1 2-2h14v16H6a2 2 0 0 0-2 2V5Zm2 14h14M8 7h8",
-  layers: "m12 3 9 5-9 5-9-5 9-5Zm-9 9 9 5 9-5",
-  upload: "M12 16V4m0 0L7 9m5-5 5 5M5 20h14",
-  spark:
-    "M12 3c.7 4.2 2.8 6.3 7 7-4.2.7-6.3 2.8-7 7-.7-4.2-2.8-6.3-7-7 4.2-.7 6.3-2.8 7-7Z",
-};
 ---
 
 <Layout title={`${SITE_NAME} — Climate evidence, decision-ready`}>
@@ -134,19 +120,22 @@ const GLYPHS: Record<string, string> = {
           shortcut="/"
         ></pagefind-searchbox>
 
-        <div class="try-row">
-          <span class="label">Try</span>
-          {TRY_CHIPS.map((chip) => <a class="try-chip" href={`/search/?q=${encodeURIComponent(chip)}`}>{chip}</a>)}
-        </div>
+        <p class="popular-line">
+          Popular:{" "}
+          {POPULAR.map((chip, i) => (
+            <>
+              {i > 0 && " · "}
+              <a href={`/search/?q=${encodeURIComponent(chip)}`}>{chip}</a>
+            </>
+          ))}
+        </p>
       </div>
 
       <div class="paths">
         <div class="label kicker start-here">Start here</div>
-        {PATHS.map((p) => (
+        {PATHS.map((p, i) => (
             <a class="path" href={p.href}>
-              <svg aria-hidden="true" class="path-glyph" fill="none" height="21" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24" width="21">
-                <path d={GLYPHS[p.glyph]} />
-              </svg>
+              <span class="mono path-num">{String(i + 1).padStart(2, "0")}</span>
               <span class="path-text">
                 <span class="path-label">{p.label}</span>
                 <span class="label path-cue">{p.cue}</span>
@@ -248,20 +237,19 @@ const GLYPHS: Record<string, string> = {
 </Layout>
 
 <style>
-/* ---- Hero: paper statement, program-blue panel on the right ---- */
+/* ---- Hero: paper statement, program-blue index bleeding right ---- */
 .hero {
   position: relative;
+  overflow-x: clip;
 }
 
-/* Top-aligned, not centred: centring each column independently leaves the
-   two kickers on different baselines */
 .hero-grid {
   position: relative;
   display: grid;
-  grid-template-columns: 1.35fr 1fr;
-  gap: 72px;
-  padding-top: 84px;
-  padding-bottom: 72px;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 56px;
+  align-items: stretch;
+  padding-block: 56px;
 }
 
 .statement {
@@ -269,16 +257,16 @@ const GLYPHS: Record<string, string> = {
 }
 
 h1 {
-  font-size: clamp(38px, 4.4vw, 58px);
-  line-height: 1.1;
-  letter-spacing: -0.025em;
+  font-size: clamp(44px, 5.2vw, 68px);
+  line-height: 1.06;
+  letter-spacing: -0.03em;
 }
 
 .lede {
-  max-width: 540px;
+  max-width: 500px;
   margin-top: var(--space-5);
   font-family: var(--serif);
-  font-size: var(--font-size-7);
+  font-size: var(--font-size-6);
   font-weight: 300;
   line-height: 1.6;
   color: var(--text-soft);
@@ -305,50 +293,39 @@ h1 {
   --pf-border: var(--cdh-blue-700);
 }
 
-.try-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  align-items: center;
+.popular-line {
   margin-top: 18px;
-}
-
-.try-row .label {
-  font-size: var(--font-size-1);
+  font-size: var(--font-size-4);
   color: var(--text-mute);
 }
 
-.try-chip {
-  padding: 5px 13px;
-  font-size: var(--font-size-4);
+.popular-line a {
   color: var(--text-soft);
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-sm);
-  transition:
-    border-color 0.12s,
-    color 0.12s,
-    background 0.12s;
 }
 
-.try-chip:hover {
-  color: var(--cdh-blue-950);
-  text-decoration: none;
-  background: var(--cdh-blue-300);
-  border-color: var(--cdh-blue-300);
-}
-
-/* ---- Start-here rail ---- */
-/* Keep the primary blue prominent as a masthead and interaction colour,
-   without turning the full navigation rail into a competing colour field. */
 .paths {
   --text-mute: var(--cdh-blue-950);
   --border: color-mix(in srgb, var(--cdh-blue-950) 22%, transparent);
 
-  padding-bottom: var(--space-2);
-  /* Matches the blue slab's 20px top padding, so "Start here" and the
-     terracotta kicker share a baseline. No horizontal bleed: the rail's right
-     edge is the container gutter, same as the header's. */
-  margin-top: -20px;
+  position: relative;
+  z-index: 0;
+  display: flex;
+  flex-direction: column;
+  padding-top: 0;
+  padding-bottom: var(--space-4);
+  margin: 0;
+}
+
+/* The flat brand field begins at the index and continues to the viewport edge. */
+.paths::before {
+  position: absolute;
+  top: calc(-1 * var(--space-4));
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  width: 100vw;
+  content: "";
+  background: var(--cdh-blue-300);
 }
 
 .statement > .kicker,
@@ -358,44 +335,40 @@ h1 {
 }
 
 .kicker.start-here {
-  padding: 20px 28px;
+  padding: 0 28px var(--space-5);
   margin-bottom: 0;
+  font-size: var(--font-size-5);
   color: var(--cdh-blue-950);
-  background: var(--cdh-blue-300);
-  border-left: 2px solid var(--cdh-blue-950);
-  /* Top-right only — a bottom radius would leave a paper notch above the
-     first row's hover fill */
-  border-radius: 0 var(--radius-sm) 0 0;
+  background: none;
 }
 
 .path {
   display: flex;
+  flex: 1;
   gap: var(--space-4);
   align-items: center;
-  padding: 16px 28px;
+  min-height: 68px;
+  padding: var(--space-3) 28px;
   color: var(--cdh-blue-950);
   border-top: 1px solid var(--border);
-  border-left: 2px solid var(--border);
-  transition:
-    background-color 0.16s,
-    border-color 0.16s;
+  transition: background-color 0.16s;
 }
 
-.path:first-of-type {
-  border-top: 0;
-}
-
-.path:hover,
-.path:focus-visible {
+.path:is(:hover, :focus-visible) {
   text-decoration: none;
-  background: var(--cdh-blue-300);
-  border-left-color: var(--cdh-blue-950);
+  background: var(--cdh-blue-950);
 }
 
-.path-glyph {
+.path:is(:hover, :focus-visible)
+  :is(.path-num, .path-label, .path-cue, .path-arrow) {
+  color: var(--text-inverse);
+}
+
+.path-num {
   flex-shrink: 0;
-  color: var(--cdh-blue-950);
-  transition: transform 0.16s;
+  font-size: var(--font-size-3);
+  color: var(--cdh-blue-800);
+  transition: color 0.16s;
 }
 
 .path-text {
@@ -426,15 +399,11 @@ h1 {
   transition: transform 0.16s;
 }
 
-.path:hover .path-glyph,
-.path:hover .path-text,
-.path:focus-visible .path-glyph,
-.path:focus-visible .path-text {
+.path:is(:hover, :focus-visible) .path-text {
   transform: translateX(var(--space-2));
 }
 
-.path:hover .path-arrow,
-.path:focus-visible .path-arrow {
+.path:is(:hover, :focus-visible) .path-arrow {
   transform: translateX(4px);
 }
 
@@ -467,9 +436,8 @@ h1 {
 }
 
 /* The kind reads as a marker column — glyph over label — instead of a pill in
-   the meta line. Bare and single-colour like the start-here rail's glyphs: a
-   blue chip for spatial, grey for tabular and terracotta for docs put three
-   more colours in one card. Navy matches the card's own title. */
+   the meta line. Keeping every glyph navy avoids adding a competing colour
+   system to the featured list and matches each card's title. */
 .essential-kind {
   display: flex;
   flex-direction: column;
@@ -638,13 +606,31 @@ h1 {
 @media (width <= 960px) {
   .hero-grid {
     grid-template-columns: 1fr;
-    gap: 40px;
-    padding-top: var(--space-7);
+    gap: var(--space-6);
+    padding-block: 36px 0;
   }
 
-  /* Stacked: no kicker beside it to align to, so keep the full 40px gap */
+  .paper-search {
+    margin-top: var(--space-5);
+  }
+
+  .popular-line {
+    display: none;
+  }
+
   .paths {
-    margin-top: 0;
+    padding-top: var(--space-6);
+    padding-bottom: var(--space-4);
+  }
+
+  .paths::before {
+    top: 0;
+    left: calc(50% - 50vw);
+  }
+
+  .path {
+    min-height: 70px;
+    padding-block: var(--space-3);
   }
 
   .essentials-grid {
