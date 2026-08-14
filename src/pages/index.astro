@@ -62,11 +62,6 @@ const PATHS = [
     cue: "Runnable tutorials",
   },
   {
-    href: "/in-use/",
-    label: "See it working in the field",
-    cue: "Use cases",
-  },
-  {
     href: "/contribute/",
     label: "Contribute data or docs",
     cue: "Add to the Hub",
@@ -77,8 +72,6 @@ const PATHS = [
     cue: "Skills & agent access",
   },
 ];
-
-const POPULAR = ["livestock", "crop production", "exposure"];
 
 const PRINCIPLES = [
   [
@@ -119,16 +112,6 @@ const PRINCIPLES = [
           placeholder="Search datasets, docs, and tutorials"
           shortcut="/"
         ></pagefind-searchbox>
-
-        <p class="popular-line">
-          Popular:{" "}
-          {POPULAR.map((chip, i) => (
-            <>
-              {i > 0 && " · "}
-              <a href={`/search/?q=${encodeURIComponent(chip)}`}>{chip}</a>
-            </>
-          ))}
-        </p>
       </div>
 
       <div class="paths">
@@ -292,16 +275,6 @@ h1 {
 
 .paper-search:focus-within {
   --pf-border: var(--cdh-blue-700);
-}
-
-.popular-line {
-  margin-top: 18px;
-  font-size: var(--font-size-4);
-  color: var(--text-mute);
-}
-
-.popular-line a {
-  color: var(--text-soft);
 }
 
 .paths {
@@ -611,10 +584,6 @@ h1 {
 
   .paper-search {
     margin-top: var(--space-5);
-  }
-
-  .popular-line {
-    display: none;
   }
 
   .paths {
