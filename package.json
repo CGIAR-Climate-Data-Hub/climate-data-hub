@@ -9,6 +9,9 @@
     "dev": "astro dev",
     "dev:example": "RECORDS_DIR=examples/records SKILLS_DIR=examples/skills astro dev",
     "build": "astro build",
+    "build:example": "RECORDS_DIR=examples/records SKILLS_DIR=examples/skills astro build",
+    "lh": "bun run build:example && lhci autorun",
+    "lh:open": "lhci open --no-lighthouserc",
     "preview": "astro preview",
     "astro": "astro",
     "check": "biome check",
@@ -27,6 +30,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^2.5.4",
+    "@lhci/cli": "0.15.1",
     "@types/d3-geo": "^3.1.0",
     "@types/topojson-client": "^3.1.5",
     "@types/topojson-specification": "^1.0.5",

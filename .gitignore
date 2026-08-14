@@ -1,5 +1,6 @@
 # build output
 dist/
+.lighthouseci/
 
 # catalog records live in the cdh-catalog repo (fetched at build time) —
 # never commit them here; use RECORDS_DIR to preview a local checkout

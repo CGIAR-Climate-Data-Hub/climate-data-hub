@@ -180,6 +180,15 @@ h1 {
   margin-top: 28px;
 }
 
+.prose :global(.notebook-output) {
+  overflow-x: auto;
+}
+
+.prose :global(.notebook-output .xr-wrap) {
+  --xr-font-color2: var(--text-soft);
+  --xr-font-color3: var(--text-soft);
+}
+
 @media (width <= 960px) {
   .narrow-grid {
     grid-template-columns: minmax(0, 1fr);

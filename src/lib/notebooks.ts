@@ -46,7 +46,9 @@ function cellToMd(cell: Cell) {
       const repr = text(html)
         .trim()
         .replace(/\n\s*\n/g, "\n");
-      parts.push(`<div data-pagefind-ignore>\n${repr}\n</div>`);
+      parts.push(
+        `<div class="notebook-output" data-pagefind-ignore>\n${repr}\n</div>`,
+      );
     } else if (png) {
       parts.push(
         `![Cell output](data:image/png;base64,${text(png).replaceAll("\n", "")})`,

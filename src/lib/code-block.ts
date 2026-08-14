@@ -72,6 +72,6 @@ export function codeHeader(label?: string): ShikiTransformer {
  * `codeHeader(...)` of their own.
  */
 export const shikiConfig = {
-  theme: "github-light" as const,
+  theme: "github-light-high-contrast" as const,
   transformers: [codeHeader()],
 };

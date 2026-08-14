@@ -9,6 +9,22 @@ bun run build   # static build to dist/
 bun run check   # lint + format (Biome)
 ```
 
+### Lighthouse CI
+
+`bun run lh` builds the site with the bundled example records and skills,
+then audits the URLs configured in `lighthouserc.json`. Reports are written
+to the gitignored `.lighthouseci/` directory; each run replaces the previous
+results. Open the latest local report with:
+
+```sh
+bun run lh:open
+```
+
+Pull requests to `main` run the same checks and attach the reports to the
+Lighthouse workflow as a downloadable artifact. The `robots-txt` audit is
+skipped because the pinned Lighthouse version does not yet recognize the valid
+`Content-Signal` directive used by the site.
+
 ### Commit hooks
 
 Lint/format checks run as git hooks via
