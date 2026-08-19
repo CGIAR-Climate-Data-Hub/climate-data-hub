@@ -1,5 +1,4 @@
 ---
-import caspLogoWhite from "@/assets/CASP_logo_white.svg";
 import { issueUrl } from "@/lib/github";
 import { GITHUB_URL, SITE_REPO } from "@/site.config";
 import LogoBlock from "./LogoBlock.astro";
@@ -25,6 +24,10 @@ const GROUPS = [
     [
       ["About", "/about/"],
       ["FAQ", "/faq/"],
+      [
+        "Climate Action Program",
+        "https://www.cgiar.org/cgiar-research-portfolio-2025-2030/climate-action",
+      ],
     ],
   ],
   [
@@ -45,19 +48,7 @@ const year = new Date().getFullYear();
 <footer>
   <div class="container top">
     <div class="brand">
-      <LogoBlock size={30} variant="dark" />
-      <a
-        class="casp"
-        href="https://www.cgiar.org/cgiar-research-portfolio-2025-2030/climate-action"
-        rel="noreferrer"
-      >
-        <img
-          alt="CGIAR Climate Action"
-          height="46"
-          src={caspLogoWhite.src}
-          width="96"
-        >
-      </a>
+      <LogoBlock variant="dark" />
     </div>
     {GROUPS.map(([title, links]) => (
         <nav aria-label={title}>
@@ -103,19 +94,6 @@ footer {
   flex-wrap: wrap;
   gap: 22px;
   align-items: center;
-}
-
-.casp {
-  display: inline-flex;
-  align-items: center;
-  padding-left: 22px;
-  border-left: 1px solid var(--border-inverse);
-}
-
-.casp img {
-  display: block;
-  width: auto;
-  height: 46px;
 }
 
 nav {

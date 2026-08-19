@@ -135,6 +135,11 @@ hr {
   border-top: 1px solid var(--border);
 }
 
+/* Rule under a section landing's page head — the plain hr, spaced */
+.head-rule {
+  margin-top: 28px;
+}
+
 :focus-visible {
   outline: 2px solid var(--terra-700);
   outline-offset: 2px;
@@ -236,6 +241,8 @@ hr {
     border-color 0.14s;
 }
 
+/* Navy, not either brand hex: white is 2.4:1 on the primary #63A9FE, and
+   #1955A6 put one blue too many on the page next to the links */
 .btn-primary {
   color: var(--text-inverse);
   background: var(--cdh-blue-950);
@@ -299,7 +306,8 @@ hr {
   border: 0;
 }
 
-.seg > a:hover {
+/* Skips the selected option, whose :hover would otherwise outrank the fill below */
+.seg > a:not([aria-current="page"]):hover {
   text-decoration: none;
   background: var(--grey-1);
 }
@@ -309,6 +317,8 @@ hr {
   border-left: 1px solid var(--border-strong);
 }
 
+/* Navy with white on it — program blue only takes navy text, which reads as a
+   dimmer label than a segmented control's selected option should */
 .seg > [aria-pressed="true"],
 .seg > [aria-current="page"] {
   font-weight: 600;

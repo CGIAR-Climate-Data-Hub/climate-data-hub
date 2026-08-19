@@ -1,14 +1,15 @@
 ---
 import PageHead from "@/components/PageHead.astro";
 import Layout from "@/layouts/Layout.astro";
+import { SITE_NAME } from "@/site.config";
 
 // The nav's PagefindConfig already loads the component UI; this page is the
 // SearchAction target (/search/?q=…) for search engines and shared links.
 ---
 
 <Layout
-  description="Search datasets, documentation, tutorials, and use cases across the Climate Data Hub."
-  title="Search — Climate Data Hub"
+  description={`Search datasets, documentation, tutorials, and use cases across the ${SITE_NAME}.`}
+  title={`Search — ${SITE_NAME}`}
 >
   <PageHead
     sub="Find datasets, docs, tutorials, and use cases."

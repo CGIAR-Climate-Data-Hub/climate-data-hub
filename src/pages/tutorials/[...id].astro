@@ -6,7 +6,7 @@ import JsonLd from "@/components/JsonLd.astro";
 import Layout from "@/layouts/Layout.astro";
 import { allTutorials } from "@/lib/collections";
 import { editUrl } from "@/lib/github";
-import { SITE_NAME, SITE_REPO } from "@/site.config";
+import { SITE_NAME, SITE_PUBLISHER_NAME, SITE_REPO } from "@/site.config";
 
 export async function getStaticPaths() {
   const entries = await allTutorials();
@@ -46,7 +46,7 @@ const jsonLd = {
   dateModified: entry.data.updated.toISOString().slice(0, 10),
   author: entry.data.author
     ? { "@type": "Person", name: entry.data.author }
-    : { "@type": "Organization", name: `CGIAR ${SITE_NAME}` },
+    : { "@type": "Organization", name: SITE_PUBLISHER_NAME },
   isPartOf: { "@type": "WebSite", "@id": `${Astro.site}#website` },
 };
 ---

@@ -9,15 +9,14 @@ import pagefind from "astro-pagefind";
 
 import { shikiConfig } from "./src/lib/code-block.ts";
 import { headingAnchors } from "./src/lib/heading-anchors.ts";
+import { SITE_URL } from "./src/site.config.ts";
 
 // Canonical production domain. Served at the root as the org's GitHub Pages site, so there
-// is no `base` (Astro defaults to "/"). To switch to a custom domain later: change this one
-// value + add public/CNAME — base stays "/" the whole time.
-const site = "https://cgiar-climate-data-hub.github.io";
-
+// is no `base` (Astro defaults to "/"). To switch to a custom domain later: change SITE_URL
+// in src/site.config.ts + add public/CNAME — base stays "/" the whole time.
 // https://astro.build/config
 export default defineConfig({
-  site,
+  site: SITE_URL,
   integrations: [mdx(), sitemap(), pagefind()],
   prefetch: { prefetchAll: true },
   output: "static",

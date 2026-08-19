@@ -10,9 +10,9 @@ import {
   isCommodityGroup,
   VOCAB_URL,
 } from "@/lib/vocab";
-import { SITE_NAME } from "@/site.config";
+import { SITE_PUBLISHER_NAME } from "@/site.config";
 
-const VIA = `Accessed through the CGIAR ${SITE_NAME}`;
+const VIA = `Accessed through the ${SITE_PUBLISHER_NAME}`;
 const formatsById = new Map(
   formatVocab.concepts.map((format) => [format.id, format]),
 );

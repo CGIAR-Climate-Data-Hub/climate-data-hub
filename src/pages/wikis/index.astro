@@ -7,8 +7,7 @@ import { githubUrl, treeUrl } from "@/lib/github";
 import { SITE_NAME, SITE_REPO, STANDARD_REPO } from "@/site.config";
 
 const groups = groupWikis(await getCollection("wikis"));
-const description =
-  "Long-form reference for how the Climate Data Hub works — standards, methods, and governance.";
+const description = `Long-form reference for how the ${SITE_NAME} works — standards, methods, and governance.`;
 ---
 
 <Layout description={description} title={`Wikis — ${SITE_NAME}`}>
@@ -20,10 +19,9 @@ const description =
         <div class="label kicker">The CDH Wiki</div>
         <h1>Read the Hub, like a book.</h1>
         <p class="lede">
-          Long-form reference for how the Climate Data Hub works — the standards
-          data must meet, the methods behind the layers, and the concepts that
-          frame them. Pick a topic from the left, or start with the essentials
-          below.
+          Long-form reference for how the {SITE_NAME} works — the standards data
+          must meet, the methods behind the layers, and the concepts that frame
+          them. Pick a topic from the left, or start with the essentials below.
         </p>
         <div class="ctas">
           <a

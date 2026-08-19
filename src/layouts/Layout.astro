@@ -5,7 +5,11 @@ import Footer from "@/components/Footer.astro";
 import JsonLd from "@/components/JsonLd.astro";
 import Navigation from "@/components/Navigation.astro";
 import ScrollProgress from "@/components/ScrollProgress.astro";
-import { SITE_DESCRIPTION, SITE_NAME } from "@/site.config";
+import {
+  SITE_DESCRIPTION,
+  SITE_NAME,
+  SITE_PUBLISHER_NAME,
+} from "@/site.config";
 
 interface Props {
   title: string;
@@ -41,7 +45,7 @@ const siteGraph = {
     {
       "@type": "Organization",
       "@id": `${site}#organization`,
-      name: `CGIAR ${SITE_NAME}`,
+      name: SITE_PUBLISHER_NAME,
       url: site,
       parentOrganization: {
         "@type": "Organization",
@@ -60,8 +64,7 @@ const siteGraph = {
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <!-- --bg paper tone, for mobile browser chrome -->
     <meta content="#f5f4f1" name="theme-color">
-    <link href="/cdh-favicon-29yr.svg" rel="icon" type="image/svg+xml">
-    <link href="/CDH_favicon_29yr.ico" rel="icon">
+    <link href="/CASP_favicon.svg" rel="icon" type="image/svg+xml">
     <meta content={Astro.generator} name="generator">
 
     <title>{title}</title>

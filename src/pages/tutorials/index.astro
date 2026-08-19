@@ -96,7 +96,7 @@ const description =
     <div>
       <div class="results-meta label">
         <span role="status"
-          ><b id="match-count">{tutorials.length}</b>
+          ><b id="match-count">{tutorials.length}</b>{" "}
           tutorials</span
         >
         <button hidden id="clear-filters" type="button">
@@ -223,10 +223,6 @@ clear?.addEventListener("click", () => {
 </script>
 
 <style>
-.head-rule {
-  margin-top: 28px;
-}
-
 .body {
   display: grid;
   grid-template-columns: 240px 1fr;

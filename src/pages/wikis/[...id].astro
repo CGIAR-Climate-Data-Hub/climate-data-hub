@@ -6,7 +6,7 @@ import JsonLd from "@/components/JsonLd.astro";
 import WikiSidebar from "@/components/WikiSidebar.astro";
 import Layout from "@/layouts/Layout.astro";
 import { editUrl } from "@/lib/github";
-import { SITE_NAME, SITE_REPO } from "@/site.config";
+import { SITE_NAME, SITE_PUBLISHER_NAME, SITE_REPO } from "@/site.config";
 
 export async function getStaticPaths() {
   const entries = await getCollection("wikis");
@@ -34,7 +34,7 @@ const jsonLd = {
   url: new URL(`/wikis/${entry.id}/`, Astro.site).href,
   author: entry.data.author
     ? { "@type": "Person", name: entry.data.author }
-    : { "@type": "Organization", name: `CGIAR ${SITE_NAME}` },
+    : { "@type": "Organization", name: SITE_PUBLISHER_NAME },
   isPartOf: { "@type": "WebSite", "@id": `${Astro.site}#website` },
 };
 ---
