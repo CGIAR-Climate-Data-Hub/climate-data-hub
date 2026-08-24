@@ -104,7 +104,7 @@ a:hover {
 /* Inline links need a non-colour cue; standalone navigation and controls keep
    their component treatments. */
 :where(p, :where(.prose, .answer) :where(li, td, dd), .cite-block li, .fact)
-  a:not(.btn, .pill, .chip) {
+a:not(.btn, .pill, .chip) {
   text-decoration: underline;
   text-underline-offset: 2px;
 }
