@@ -53,21 +53,25 @@ const essentials = [
 const PATHS = [
   {
     href: "/catalog/",
+    icon: "M11 4a7 7 0 1 1 0 14 7 7 0 0 1 0-14Zm10 17-4.3-4.3",
     label: "Find a specific dataset",
     cue: "Search & filter",
   },
   {
     href: "/tutorials/",
+    icon: "M4 5a2 2 0 0 1 2-2h14v16H6a2 2 0 0 0-2 2V5Zm2 14h14M8 7h8",
     label: "Learn how to use the data",
     cue: "Runnable tutorials",
   },
   {
     href: "/contribute/",
+    icon: "M12 16V4m0 0L7 9m5-5 5 5M5 20h14",
     label: "Contribute data or docs",
     cue: "Add to the Hub",
   },
   {
     href: "/ai/",
+    icon: "M12 3c.7 4.2 2.8 6.3 7 7-4.2.7-6.3 2.8-7 7-.7-4.2-2.8-6.3-7-7 4.2-.7 6.3-2.8 7-7Z",
     label: "Use the Hub with AI",
     cue: "Skills & agent access",
   },
@@ -116,9 +120,11 @@ const PRINCIPLES = [
 
       <div class="paths">
         <div class="label kicker start-here">Start here</div>
-        {PATHS.map((p, i) => (
+        {PATHS.map((p) => (
             <a class="path" href={p.href}>
-              <span class="mono path-num">{String(i + 1).padStart(2, "0")}</span>
+              <svg aria-hidden="true" class="path-glyph" fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24" width="20">
+                <path d={p.icon} />
+              </svg>
               <span class="path-text">
                 <span class="path-label">{p.label}</span>
                 <span class="label path-cue">{p.cue}</span>
@@ -332,13 +338,12 @@ h1 {
 }
 
 .path:is(:hover, :focus-visible)
-  :is(.path-num, .path-label, .path-cue, .path-arrow) {
+  :is(.path-glyph, .path-label, .path-cue, .path-arrow) {
   color: var(--text-inverse);
 }
 
-.path-num {
+.path-glyph {
   flex-shrink: 0;
-  font-size: var(--font-size-3);
   color: var(--cdh-blue-800);
   transition: color 0.16s;
 }
