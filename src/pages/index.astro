@@ -31,7 +31,6 @@ const essentials = [
     href: `/catalog/${d.id}/`,
     name: d.title,
     badge: "Dataset",
-    badgeClass: d.type,
     meta: [d.coverage, d.temporal].filter(Boolean).join(" · "),
     glyph: d.type,
   })),
@@ -39,7 +38,6 @@ const essentials = [
     href: `/tutorials/${t.id}/`,
     name: t.data.title,
     badge: "Tutorial",
-    badgeClass: "warn",
     meta: `${t.data.audience} · ${t.data.time}`,
     glyph: undefined,
   })),
@@ -47,7 +45,6 @@ const essentials = [
     href: `/wikis/${w.id}/`,
     name: w.data.title,
     badge: "Wiki",
-    badgeClass: "",
     meta: w.data.section,
     glyph: undefined,
   })),
@@ -56,37 +53,29 @@ const essentials = [
 const PATHS = [
   {
     href: "/catalog/",
-    glyph: "search",
+    icon: "M11 4a7 7 0 1 1 0 14 7 7 0 0 1 0-14Zm10 17-4.3-4.3",
     label: "Find a specific dataset",
     cue: "Search & filter",
   },
   {
     href: "/tutorials/",
-    glyph: "book",
+    icon: "M4 5a2 2 0 0 1 2-2h14v16H6a2 2 0 0 0-2 2V5Zm2 14h14M8 7h8",
     label: "Learn how to use the data",
     cue: "Runnable tutorials",
   },
   {
-    href: "/in-use/",
-    glyph: "layers",
-    label: "See it working in the field",
-    cue: "Use cases",
-  },
-  {
     href: "/contribute/",
-    glyph: "upload",
+    icon: "M12 16V4m0 0L7 9m5-5 5 5M5 20h14",
     label: "Contribute data or docs",
     cue: "Add to the Hub",
   },
   {
     href: "/ai/",
-    glyph: "spark",
+    icon: "M12 3c.7 4.2 2.8 6.3 7 7-4.2.7-6.3 2.8-7 7-.7-4.2-2.8-6.3-7-7 4.2-.7 6.3-2.8 7-7Z",
     label: "Use the Hub with AI",
     cue: "Skills & agent access",
   },
 ];
-
-const TRY_CHIPS = ["livestock", "crop production", "gridded", "exposure"];
 
 const PRINCIPLES = [
   [
@@ -106,15 +95,6 @@ const PRINCIPLES = [
     "COG and Zarr: query data where it lives, or stream just the window you need — no bespoke plumbing.",
   ],
 ];
-
-const GLYPHS: Record<string, string> = {
-  search: "M11 4a7 7 0 1 1 0 14 7 7 0 0 1 0-14Zm10 17-4.3-4.3",
-  book: "M4 5a2 2 0 0 1 2-2h14v16H6a2 2 0 0 0-2 2V5Zm2 14h14M8 7h8",
-  layers: "m12 3 9 5-9 5-9-5 9-5Zm-9 9 9 5 9-5",
-  upload: "M12 16V4m0 0L7 9m5-5 5 5M5 20h14",
-  spark:
-    "M12 3c.7 4.2 2.8 6.3 7 7-4.2.7-6.3 2.8-7 7-.7-4.2-2.8-6.3-7-7 4.2-.7 6.3-2.8 7-7Z",
-};
 ---
 
 <Layout title={`${SITE_NAME} — Climate evidence, decision-ready`}>
@@ -136,19 +116,14 @@ const GLYPHS: Record<string, string> = {
           placeholder="Search datasets, docs, and tutorials"
           shortcut="/"
         ></pagefind-searchbox>
-
-        <div class="try-row">
-          <span class="label">Try</span>
-          {TRY_CHIPS.map((chip) => <a class="try-chip" href={`/search/?q=${encodeURIComponent(chip)}`}>{chip}</a>)}
-        </div>
       </div>
 
       <div class="paths">
         <div class="label kicker start-here">Start here</div>
         {PATHS.map((p) => (
             <a class="path" href={p.href}>
-              <svg aria-hidden="true" class="path-glyph" fill="none" height="21" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24" width="21">
-                <path d={GLYPHS[p.glyph]} />
+              <svg aria-hidden="true" class="path-glyph" fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24" width="20">
+                <path d={p.icon} />
               </svg>
               <span class="path-text">
                 <span class="path-label">{p.label}</span>
@@ -178,19 +153,21 @@ const GLYPHS: Record<string, string> = {
       <div class="essentials-grid">
         {essentials.map((item) => (
             <a class="essential" href={item.href}>
-              <span class:list={["essential-glyph", item.glyph ?? "doc"]}>
-                {item.glyph ? (
-                  <DataGlyph size={19} type={item.glyph} />
-                ) : (
-                  <svg aria-hidden="true" fill="none" height="19" stroke="currentColor" stroke-linecap="round" stroke-width="1.6" viewBox="0 0 24 24" width="19">
-                    <path d="M7 3h7l5 5v13H7V3Zm7 0v5h5M10 12h6M10 16h6" />
-                  </svg>
-                )}
+              <span class="essential-kind">
+                <span class="essential-glyph">
+                  {item.glyph ? (
+                    <DataGlyph size={19} type={item.glyph} />
+                  ) : (
+                    <svg aria-hidden="true" fill="none" height="19" stroke="currentColor" stroke-linecap="round" stroke-width="1.6" viewBox="0 0 24 24" width="19">
+                      <path d="M7 3h7l5 5v13H7V3Zm7 0v5h5M10 12h6M10 16h6" />
+                    </svg>
+                  )}
+                </span>
+                <span class="label">{item.badge}</span>
               </span>
               <span class="essential-text">
                 <span class="essential-name">{item.name}</span>
                 <span class="essential-meta">
-                  <span class:list={["pill", "dot", item.badgeClass]}>{item.badge}</span>
                   <span class="mono">{item.meta}</span>
                 </span>
               </span>
@@ -249,33 +226,20 @@ const GLYPHS: Record<string, string> = {
 </Layout>
 
 <style>
-/* ---- Hero: paper statement + program-blue sweep on the right ---- */
-/* No overflow clipping here — the searchbox dropdown must extend past the
-   hero's bottom edge. The ::before gradient is inset: 0, so it can't leak. */
+/* ---- Hero: pale brand field, program-blue index bleeding right ---- */
 .hero {
   position: relative;
-}
-
-.hero::before {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  content: "";
-  background: linear-gradient(
-    90deg,
-    transparent 28%,
-    color-mix(in srgb, var(--cdh-blue-300) 46%, transparent) 100%
-  );
+  overflow-x: clip;
+  background: var(--cdh-blue-50);
 }
 
 .hero-grid {
   position: relative;
   display: grid;
-  grid-template-columns: 1.35fr 1fr;
-  gap: 72px;
-  align-items: center;
-  padding-top: 84px;
-  padding-bottom: 72px;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 56px;
+  align-items: stretch;
+  padding-block: 56px;
 }
 
 .statement {
@@ -283,16 +247,16 @@ const GLYPHS: Record<string, string> = {
 }
 
 h1 {
-  font-size: clamp(38px, 4.4vw, 58px);
-  line-height: 1.1;
-  letter-spacing: -0.025em;
+  font-size: clamp(44px, 5.2vw, 68px);
+  line-height: 1.06;
+  letter-spacing: -0.03em;
 }
 
 .lede {
-  max-width: 540px;
+  max-width: 500px;
   margin-top: var(--space-5);
   font-family: var(--serif);
-  font-size: var(--font-size-7);
+  font-size: var(--font-size-6);
   font-weight: 300;
   line-height: 1.6;
   color: var(--text-soft);
@@ -319,77 +283,75 @@ h1 {
   --pf-border: var(--cdh-blue-700);
 }
 
-.try-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  align-items: center;
-  margin-top: 18px;
-}
-
-.try-row .label {
-  font-size: var(--font-size-1);
-  color: var(--text-mute);
-}
-
-.try-chip {
-  padding: 5px 13px;
-  font-size: var(--font-size-4);
-  color: var(--text-soft);
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-sm);
-  transition:
-    border-color 0.12s,
-    color 0.12s,
-    background 0.12s;
-}
-
-.try-chip:hover {
-  color: var(--cdh-blue-800);
-  text-decoration: none;
-  background: var(--cdh-blue-50);
-  border-color: var(--cdh-blue-300);
-}
-
-/* ---- Start-here rail ---- */
 .paths {
-  padding-left: 44px;
-  border-left: 1px solid var(--border);
+  --text-mute: var(--cdh-blue-950);
+
+  position: relative;
+  z-index: 0;
+  display: flex;
+  flex-direction: column;
+  padding-top: 0;
+  padding-bottom: var(--space-4);
+  margin: 0;
+}
+
+/* The flat brand field begins at the index and continues to the viewport edge. */
+.paths::before {
+  position: absolute;
+  top: calc(-1 * var(--space-4));
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  width: 100vw;
+  content: "";
+  background: var(--cdh-blue-300);
+}
+
+.statement > .kicker,
+.kicker.start-here {
+  font-size: var(--font-size-4);
+  font-weight: 700;
 }
 
 .kicker.start-here {
-  margin-bottom: 6px;
-  color: var(--terra-500);
+  padding: 0 28px var(--space-5);
+  margin-bottom: 0;
+  font-size: var(--font-size-5);
+  color: var(--cdh-blue-950);
+  background: none;
 }
 
 .path {
   display: flex;
+  flex: 1;
   gap: var(--space-4);
   align-items: center;
-  padding: 18px var(--space-1);
-  color: var(--text);
-  border-top: 1px solid var(--border);
-  transition: padding-left 0.16s;
+  min-height: 68px;
+  padding: var(--space-3) 28px;
+  color: var(--cdh-blue-950);
+  transition: background-color 0.16s;
 }
 
-.path:first-of-type {
-  border-top: 0;
-}
-
-.path:hover {
-  padding-left: var(--space-3);
+.path:is(:hover, :focus-visible) {
   text-decoration: none;
+  background: var(--cdh-blue-950);
+}
+
+.path:is(:hover, :focus-visible)
+  :is(.path-glyph, .path-label, .path-cue, .path-arrow) {
+  color: var(--text-inverse);
 }
 
 .path-glyph {
   flex-shrink: 0;
-  color: var(--cdh-blue-700);
+  color: var(--cdh-blue-800);
   transition: color 0.16s;
 }
 
 .path-text {
   flex: 1;
   min-width: 0;
+  transition: transform 0.16s;
 }
 
 .path-label {
@@ -411,17 +373,14 @@ h1 {
 .path-arrow {
   flex-shrink: 0;
   color: var(--text-mute);
-  transition:
-    transform 0.16s,
-    color 0.16s;
+  transition: transform 0.16s;
 }
 
-.path:hover .path-glyph,
-.path:hover .path-arrow {
-  color: var(--terra-700);
+.path:is(:hover, :focus-visible) .path-text {
+  transform: translateX(var(--space-2));
 }
 
-.path:hover .path-arrow {
+.path:is(:hover, :focus-visible) .path-arrow {
   transform: translateX(4px);
 }
 
@@ -439,7 +398,7 @@ h1 {
 
 .essential {
   display: grid;
-  grid-template-columns: 40px 1fr auto;
+  grid-template-columns: auto 1fr auto;
   gap: var(--space-4);
   align-items: center;
   padding: 18px 6px;
@@ -453,18 +412,29 @@ h1 {
   background: var(--surface);
 }
 
+/* The kind reads as a marker column — glyph over label — instead of a pill in
+   the meta line. Keeping every glyph navy avoids adding a competing colour
+   system to the featured list and matches each card's title. */
+.essential-kind {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  align-items: center;
+  color: var(--cdh-blue-950);
+}
+
 .essential-glyph {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: var(--radius-lg);
+  height: 22px;
 }
 
-.essential-glyph.doc {
-  color: var(--terra-700);
-  background: var(--terra-50);
+.essential-glyph :global(.glyph) {
+  width: auto;
+  height: auto;
+  color: inherit;
+  background: none;
 }
 
 .essential-text {
@@ -613,13 +583,27 @@ h1 {
 @media (width <= 960px) {
   .hero-grid {
     grid-template-columns: 1fr;
-    gap: 40px;
-    padding-top: var(--space-7);
+    gap: var(--space-6);
+    padding-block: 36px 0;
+  }
+
+  .paper-search {
+    margin-top: var(--space-5);
   }
 
   .paths {
-    padding-left: 0;
-    border-left: 0;
+    padding-top: var(--space-6);
+    padding-bottom: var(--space-4);
+  }
+
+  .paths::before {
+    top: 0;
+    left: calc(50% - 50vw);
+  }
+
+  .path {
+    min-height: 70px;
+    padding-block: var(--space-3);
   }
 
   .essentials-grid {

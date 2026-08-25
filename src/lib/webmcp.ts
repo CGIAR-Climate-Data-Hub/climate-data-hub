@@ -1,5 +1,7 @@
 // Expose the site's machine-readable endpoints to WebMCP-capable browsers.
 
+import { SITE_NAME } from "@/site.config";
+
 const text = (t: string) => ({ content: [{ type: "text", text: t }] });
 
 const fetchText = async (url: string) => {
@@ -12,8 +14,7 @@ const fetchText = async (url: string) => {
 const tools = [
   {
     name: "search_datasets",
-    description:
-      "Search the Climate Data Hub catalog for datasets matching a query. Returns matching datasets as JSON with id, name, description, and url.",
+    description: `Search the ${SITE_NAME} catalog for datasets matching a query. Returns matching datasets as JSON with id, name, description, and url.`,
     inputSchema: {
       type: "object",
       properties: {

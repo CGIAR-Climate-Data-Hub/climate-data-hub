@@ -4,7 +4,7 @@ import { getCollection } from "astro:content";
 import type { APIRoute } from "astro";
 import { currentReleases } from "@/lib/catalog";
 import { allTutorials } from "@/lib/collections";
-import { SITE_NAME, SKILLS_SITE } from "@/site.config";
+import { SITE_PUBLISHER_NAME, SKILLS_SITE } from "@/site.config";
 
 export const GET: APIRoute = async ({ site }) => {
   const abs = (path: string) => new URL(path, site).href;
@@ -16,7 +16,7 @@ export const GET: APIRoute = async ({ site }) => {
   const line = (title: string, url: string, desc: string) =>
     `- [${title.replaceAll("[", "\\[").replaceAll("]", "\\]")}](${abs(url)}): ${desc.trim().replace(/\s+/g, " ")}`;
 
-  const md = `# CGIAR ${SITE_NAME}
+  const md = `# ${SITE_PUBLISHER_NAME}
 
 > A curated catalog of quality-assured climate and agricultural datasets, described consistently, openly licensed, and published in cloud-native formats. Use the catalog to discover datasets, inspect metadata, cite original publishers, and access Zarr, Cloud-Optimized GeoTIFF, and Parquet assets plus STAC metadata directly.
 

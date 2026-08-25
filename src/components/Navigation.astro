@@ -1,6 +1,6 @@
 ---
 import PagefindConfig from "astro-pagefind/components/PagefindConfig.astro";
-import { GITHUB_URL } from "@/site.config";
+import { GITHUB_URL, SITE_NAME } from "@/site.config";
 import LogoBlock from "./LogoBlock.astro";
 
 const LEARN = [
@@ -95,11 +95,7 @@ const isActive = (href: string) => path.startsWith(href);
 
     <a class="btn btn-ghost btn-cta cta" href="/contribute/">Contribute</a>
 
-    <a
-      aria-label="CGIAR Climate Data Hub on GitHub"
-      class="gh"
-      href={GITHUB_URL}
-    >
+    <a aria-label={`${SITE_NAME} on GitHub`} class="gh" href={GITHUB_URL}>
       <svg
         aria-hidden="true"
         fill="currentColor"
@@ -203,7 +199,7 @@ header[data-scrolled] {
 
 .bar {
   display: flex;
-  gap: 28px;
+  gap: 24px;
   align-items: center;
   height: var(--nav-height);
 }
@@ -220,7 +216,7 @@ nav {
   gap: 5px;
   align-items: center;
   justify-content: center;
-  min-width: 88px;
+  min-width: 76px;
   padding: 6px 10px;
   font-size: var(--font-size-6);
   font-weight: 500;
@@ -238,7 +234,8 @@ nav {
   text-decoration: none;
 }
 
-/* Hover: muted blue underline grows from centre — distinct from the terracotta active rule */
+/* Hover: terracotta underline grows from centre — distinct from the program-blue
+   active rule, and transient so it never competes with where you actually are */
 .nav-item:not(.is-active)::after {
   position: absolute;
   right: 10px;
@@ -246,7 +243,7 @@ nav {
   left: 10px;
   height: 2px;
   content: "";
-  background: var(--cdh-blue-300);
+  background: var(--terra-700);
   border-radius: 2px;
   transform: scaleX(0);
   transform-origin: center;
@@ -263,14 +260,17 @@ nav {
   color: var(--cdh-blue-950);
 }
 
+/* The primary #63A9FE, and 3px rather than the hover's 2px: it is only 2.21:1
+   on paper, so the rule leans on area, and the label's navy (against grey-6
+   when inactive) carries the state as well — the colour isn't load-bearing alone */
 .nav-item.is-active::after {
   position: absolute;
   right: 10px;
   bottom: -3px;
   left: 10px;
-  height: 2px;
+  height: 3px;
   content: "";
-  background: var(--terra-700);
+  background: var(--cdh-blue-300);
   border-radius: 2px;
 }
 
@@ -373,9 +373,10 @@ nav {
   display: none;
 }
 
-/* Below this the bar is too tight for the labelled trigger — swap to the
-   icon-only compact one Pagefind provides, same as the mobile treatment */
-@media (width <= 1200px) {
+/* Below this the bar is too tight for the labelled trigger — it gets squeezed
+   until its placeholder wraps onto three lines and pushes the GitHub icon off
+   the edge. Swap to the icon-only compact one Pagefind provides */
+@media (width <= 1320px) {
   .search {
     flex: 0 0 auto;
   }
@@ -390,12 +391,16 @@ nav {
 }
 
 .cta {
+  flex-shrink: 0;
   padding: var(--space-2) var(--space-4);
   font-size: var(--font-size-5);
+  white-space: nowrap;
 }
 
+/* Never let the icon be the thing that gets squeezed out of the row */
 .gh {
   display: inline-flex;
+  flex-shrink: 0;
   align-items: center;
   color: var(--grey-5);
 }
@@ -446,13 +451,13 @@ header:has(#mobile-menu:popover-open) .i-close {
 
 /* Belt-and-braces: never show it at desktop widths, even if it was opened
    just before a resize (author display beats the UA popover rule) */
-@media (width > 960px) {
+@media (width > 1100px) {
   .mobile-menu {
     display: none;
   }
 }
 
-@media (width <= 960px) {
+@media (width <= 1100px) {
   .bar {
     gap: 14px;
   }
@@ -491,7 +496,7 @@ header:has(#mobile-menu:popover-open) .i-close {
   .mobile-menu a.is-active {
     padding-left: var(--space-3);
     color: var(--cdh-blue-950);
-    box-shadow: inset 3px 0 0 var(--terra-700);
+    box-shadow: inset 4px 0 0 var(--cdh-blue-300);
   }
 
   .mobile-menu a:last-child {
