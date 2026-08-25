@@ -3,10 +3,25 @@ name: Lighthouse
 on:
   pull_request:
     branches: [main]
+    paths:
+      - "src/**"
+      - "public/**"
+      - "examples/**"
+      - astro.config.mjs
+      - tsconfig.json
+      - package.json
+      - bun.lock
+      - lighthouserc.json
+      - .github/workflows/lighthouse.yml
   workflow_dispatch:
 
 permissions:
   contents: read
+
+# Superseded pushes to the same PR don't need their own full audit
+concurrency:
+  group: lighthouse-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   lighthouse:
