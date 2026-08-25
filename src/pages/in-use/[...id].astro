@@ -7,7 +7,7 @@ import JsonLd from "@/components/JsonLd.astro";
 import Takeaways from "@/components/Takeaways.astro";
 import Layout from "@/layouts/Layout.astro";
 import { editUrl } from "@/lib/github";
-import { SITE_NAME, SITE_REPO } from "@/site.config";
+import { SITE_NAME, SITE_PUBLISHER_NAME, SITE_REPO } from "@/site.config";
 
 export async function getStaticPaths() {
   const entries = await getCollection("useCases");
@@ -37,7 +37,7 @@ const jsonLd = {
   description: entry.data.description,
   datePublished: date,
   url: new URL(`/in-use/${entry.id}/`, Astro.site).href,
-  author: { "@type": "Organization", name: `CGIAR ${SITE_NAME}` },
+  author: { "@type": "Organization", name: SITE_PUBLISHER_NAME },
   about: entry.data.sector,
   contentLocation: { "@type": "Place", name: entry.data.country },
   isPartOf: { "@type": "WebSite", "@id": `${Astro.site}#website` },

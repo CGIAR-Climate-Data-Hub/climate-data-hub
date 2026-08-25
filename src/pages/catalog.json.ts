@@ -6,7 +6,7 @@
 import { getCollection } from "astro:content";
 import type { APIRoute } from "astro";
 import { currentReleases, datasetJsonLd } from "@/lib/catalog";
-import { SITE_DESCRIPTION, SITE_NAME } from "@/site.config";
+import { SITE_DESCRIPTION, SITE_PUBLISHER_NAME } from "@/site.config";
 
 export const GET: APIRoute = async ({ site }) => {
   const catalogUrl = new URL("/catalog/", site).href;
@@ -24,7 +24,7 @@ export const GET: APIRoute = async ({ site }) => {
     "@context": "https://schema.org",
     "@type": "DataCatalog",
     "@id": catalogUrl,
-    name: `CGIAR ${SITE_NAME} Catalog`,
+    name: `${SITE_PUBLISHER_NAME} Catalog`,
     description: SITE_DESCRIPTION,
     url: catalogUrl,
     dataset: datasets,

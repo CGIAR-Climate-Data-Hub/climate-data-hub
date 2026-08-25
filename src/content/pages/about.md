@@ -27,8 +27,9 @@ principles:
     body: Centers, programmes and partners contribute data, tools and stories.
 ---
 
-The Hub is a product of the CGIAR Climate Action Program, maintained by a small
-engineering and data-stewardship team at the [Alliance of Bioversity
+The Hub is a product of CGIAR Climate Action, maintained by a small engineering
+and data-stewardship team at the
+[Alliance of Bioversity
 International and CIAT](https://alliancebioversityciat.org), working across
 CGIAR Centers. Datasets are reviewed against the Hub's metadata and STAC
 profile before publication; contributions are triaged by the stewardship team

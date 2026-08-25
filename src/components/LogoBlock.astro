@@ -1,36 +1,35 @@
 ---
-// The mark itself is a shareable static asset — public/cdh-mark.svg (navy
-// baseline, canonical) and public/cdh-mark-dark.svg (white baseline).
+import caspLogo from "@/assets/CASP_logo.svg";
+import caspLogoWhite from "@/assets/CASP_logo_white.svg";
+import { SITE_NAME } from "@/site.config";
+
 interface Props {
   variant?: "light" | "dark";
-  size?: number;
 }
 
-const { variant = "light", size = 24 } = Astro.props;
+const { variant = "light" } = Astro.props;
 const onDark = variant === "dark";
 ---
 
 <a
-  aria-label="CGIAR Climate Data Hub home"
+  aria-label={`${SITE_NAME} home`}
   href="/"
   class:list={["logo-block", { dark: onDark }]}
 >
   <img
     alt=""
-    height={size}
-    src={onDark ? "/cdh-mark-dark.svg" : "/cdh-mark.svg"}
-    width={Math.round((size * 965) / 379)}
+    height="56"
+    src={onDark ? caspLogoWhite.src : caspLogo.src}
+    width="117"
   >
-  <span class="wordmark" style={`font-size: ${size * 0.8}px`}
-    >Climate&nbsp;Data&nbsp;Hub</span
-  >
+  <span class="wordmark">{SITE_NAME}</span>
 </a>
 
 <style>
 .logo-block {
   display: inline-flex;
   flex-shrink: 0;
-  gap: var(--space-3);
+  gap: var(--space-2);
   align-items: center;
   text-decoration: none;
 }
@@ -39,16 +38,45 @@ const onDark = variant === "dark";
   text-decoration: none;
 }
 
+/* Sized here, not by props: the CASP logo sets "CGIAR CLIMATE ACTION" in
+   three lines inside itself, so it needs ~56px to stay readable — nothing
+   like the size the wordmark beside it wants */
+img {
+  width: auto;
+  height: 56px;
+}
+
+.dark img {
+  height: 48px;
+}
+
+/* Matches where the header collapses to its hamburger and shortens */
+@media (width <= 1100px) {
+  img {
+    height: 46px;
+  }
+}
+
+/* Rule inset to ~1.5x the text rather than run full-bleed — at the lockup's
+   full height it reads as an edge of the CASP box, not a separator */
 .wordmark {
+  display: flex;
+  align-items: center;
+  padding-block: 0.25em;
+  padding-left: var(--space-2);
   font-family: var(--serif);
+  font-size: var(--font-size-8);
   font-weight: 500;
   line-height: 1;
   color: var(--cdh-blue-950);
   letter-spacing: -0.01em;
   white-space: nowrap;
+  border-left: 1px solid var(--border-strong);
 }
 
 .dark .wordmark {
+  font-size: var(--font-size-9);
   color: var(--text-inverse);
+  border-left-color: var(--border-inverse);
 }
 </style>
