@@ -23,7 +23,7 @@ jobs:
           uploadArtifacts: true
       - name: Summarize Lighthouse scores
         if: ${{ always() && steps.lighthouse.outputs.resultsPath != '' }}
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         env:
           LIGHTHOUSE_RESULTS_PATH: ${{ steps.lighthouse.outputs.resultsPath }}
         with:
