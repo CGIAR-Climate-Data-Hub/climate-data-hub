@@ -29,13 +29,10 @@ const floorClean = (n: number) => {
   const p = 10 ** Math.floor(Math.log10(Math.max(n, 1)));
   return Math.floor(n / p) * p;
 };
-const [volume, volumeUnit] =
-  totalBytes >= 1e12
-    ? [totalBytes / 1e12, "TB"]
-    : totalBytes >= 1e9
-      ? [totalBytes / 1e9, "GB"]
-      : [totalBytes / 1e6, "MB"];
-const dataVolume = `${floorClean(volume)}+ ${volumeUnit}`;
+const [volumeUnit, factor] = Object.entries(UNITS)
+  .reverse()
+  .find(([, f]) => totalBytes >= f) ?? ["MB", 1e6];
+const dataVolume = `${floorClean(totalBytes / factor)}+ ${volumeUnit}`;
 
 const jsonLd = {
   "@context": "https://schema.org",
