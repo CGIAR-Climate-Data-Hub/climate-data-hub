@@ -2,11 +2,13 @@
 import { getCollection } from "astro:content";
 import WikiSidebar from "@/components/WikiSidebar.astro";
 import Layout from "@/layouts/Layout.astro";
-import { groupWikis, WIKI_SECTION_LABELS } from "@/lib/collections";
+import { groupWikis } from "@/lib/collections";
 import { githubUrl, treeUrl } from "@/lib/github";
 import { SITE_NAME, SITE_REPO, STANDARD_REPO } from "@/site.config";
 
-const groups = groupWikis(await getCollection("wikis"));
+const groups = groupWikis(
+  await getCollection("wikis", ({ data }) => !data.soon),
+);
 const description = `Long-form reference for how the ${SITE_NAME} works — standards, methods, and governance.`;
 ---
 
@@ -40,7 +42,7 @@ const description = `Long-form reference for how the ${SITE_NAME} works — stan
 
       {groups.map((group) => (
           <section>
-            <h2>{WIKI_SECTION_LABELS[group.section] ?? group.section}</h2>
+            <h2>{group.section}</h2>
             <div class="rows">
               {group.entries.map((wiki) => (
                 <a class="row" href={`/wikis/${wiki.id}/`}>
