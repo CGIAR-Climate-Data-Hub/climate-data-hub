@@ -1,11 +1,11 @@
 # yaml-language-server: $schema=../../spec/schemas/profiles/cdh.schema.json
-"$schema": https://cgiar-climate-data-hub.github.io/cdh-metadata-standard/v0.1.0/schemas/profiles/cdh.schema.json
-cdh_schema_version: "v0.1.0"
+"$schema": https://cgiar-climate-data-hub.github.io/cdh-metadata-standard/v0.3.0/schemas/profiles/cdh.schema.json
+cdh_schema_version: "v0.3.0"
 
 extensions:
-  - https://cgiar-climate-data-hub.github.io/cdh-metadata-standard/v0.1.0/extensions/cdh/schema.json
-  - https://cgiar-climate-data-hub.github.io/cdh-metadata-standard/v0.1.0/extensions/datacube/schema.json
-  - https://cgiar-climate-data-hub.github.io/cdh-metadata-standard/v0.1.0/extensions/agriculture/schema.json
+  - https://cgiar-climate-data-hub.github.io/cdh-metadata-standard/v0.3.0/extensions/cdh/schema.json
+  - https://cgiar-climate-data-hub.github.io/cdh-metadata-standard/v0.3.0/extensions/datacube/schema.json
+  - https://cgiar-climate-data-hub.github.io/cdh-metadata-standard/v0.3.0/extensions/agriculture/schema.json
 
 id: glw4-2020
 title: Gridded livestock density for 2020 (GLW4)
@@ -93,10 +93,11 @@ variables:
     unit: "{head}/km-1"
 
 cdh:
-  not_recommended_for:
-    - use: exact livestock counts
-      reason: values are spatially modeled estimates derived from census and other data
-      use_instead: official livestock census counts where available
+  usage:
+    not_recommended_for:
+      - use: exact livestock counts
+        reason: values are spatially modeled estimates derived from census and other data
+        use_instead: official livestock census counts where available
   domain: [agricultural-production]
 
 commodities: [buffalo, cattle, chickens, goats, swine, sheep]
