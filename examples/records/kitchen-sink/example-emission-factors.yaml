@@ -1,6 +1,13 @@
 # Minimal non-spatial record: exercises the sparse-metadata rendering —
 # no spatial block (no coverage, no resolution), a single reference year,
 # one tabular asset. The card footer should show only "CC-BY-4.0 · 2021".
+"$schema": https://cgiar-climate-data-hub.github.io/cdh-metadata-standard/v0.3.0/schemas/profiles/cdh.schema.json
+cdh_schema_version: "v0.3.0"
+extensions:
+  - https://cgiar-climate-data-hub.github.io/cdh-metadata-standard/v0.3.0/extensions/cdh/schema.json
+  - https://cgiar-climate-data-hub.github.io/cdh-metadata-standard/v0.3.0/extensions/datacube/schema.json
+  - https://cgiar-climate-data-hub.github.io/cdh-metadata-standard/v0.3.0/extensions/agriculture/schema.json
+
 id: example-emission-factors
 title: Example Crop Emission Factors (SAMPLE - NOT REAL DATA)
 description: >
@@ -32,7 +39,7 @@ temporal:
   date: "2021" # reference year for the factors
 
 commodities:
-  - maiz
+  - maize
   - rice
 
 cdh:
@@ -51,6 +58,7 @@ dimensions:
     description: Example crop code.
     values: [maiz, rice]
   - name: gas
+    type: gas
     description: Greenhouse gas.
     values: [co2, ch4, n2o]
 
@@ -58,6 +66,5 @@ data:
   - name: emission-factors.csv
     description: Emission factors by crop and gas.
     media_type: text/csv
-    roles: [data]
     locations:
       - url: https://example.org/data/emission-factors.csv

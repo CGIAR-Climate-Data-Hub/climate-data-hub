@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=../../spec/schemas/profiles/cdh.schema.json
-"$schema": https://cgiar-climate-data-hub.github.io/cdh-metadata-standard/v0.1.0/schemas/profiles/cdh.schema.json
+"$schema": https://cgiar-climate-data-hub.github.io/cdh-metadata-standard/v0.3.0/schemas/profiles/cdh.schema.json
 #
 # ============================================================================
 # SAMPLE RECORD - NOT REAL DATA.
@@ -9,13 +9,13 @@
 # This is the CURRENT release (v2.0); its predecessor snapshot lives in
 # example-crop-suitability-v1.yaml and is referenced via previous_version.
 # ============================================================================
-cdh_schema_version: "v0.1.0"
+cdh_schema_version: "v0.3.0"
 extensions:
-  - https://cgiar-climate-data-hub.github.io/cdh-metadata-standard/v0.1.0/extensions/cdh/schema.json
-  - https://cgiar-climate-data-hub.github.io/cdh-metadata-standard/v0.1.0/extensions/climate/schema.json
-  - https://cgiar-climate-data-hub.github.io/cdh-metadata-standard/v0.1.0/extensions/datacube/schema.json
-  - https://cgiar-climate-data-hub.github.io/cdh-metadata-standard/v0.1.0/extensions/classification/schema.json
-  - https://cgiar-climate-data-hub.github.io/cdh-metadata-standard/v0.1.0/extensions/agriculture/schema.json
+  - https://cgiar-climate-data-hub.github.io/cdh-metadata-standard/v0.3.0/extensions/cdh/schema.json
+  - https://cgiar-climate-data-hub.github.io/cdh-metadata-standard/v0.3.0/extensions/climate/schema.json
+  - https://cgiar-climate-data-hub.github.io/cdh-metadata-standard/v0.3.0/extensions/datacube/schema.json
+  - https://cgiar-climate-data-hub.github.io/cdh-metadata-standard/v0.3.0/extensions/classification/schema.json
+  - https://cgiar-climate-data-hub.github.io/cdh-metadata-standard/v0.3.0/extensions/agriculture/schema.json
 
 id: example-crop-suitability
 title: "Example Gridded Crop Suitability Projections (SAMPLE - NOT REAL DATA)"
@@ -114,7 +114,6 @@ spatial:
       unit: degree
       value: 0.05
       label: 3 arc-minutes (~5 km at equator)
-      note: Regular lat/lon grid; cell ground area shrinks toward the poles.
 
 temporal:
   # Coverage span (year precision). The two projection horizons are a temporal
@@ -128,7 +127,7 @@ dimensions:
   - name: time
     type: temporal
     description: Projection horizon (reference year).
-    values: [2030, 2050]
+    values: ["2030", "2050"]
     step: P20Y
   - name: crop
     type: crop
@@ -157,10 +156,15 @@ variables:
 
 cdh:
   domain: [agricultural-production, adaptation]
-  not_recommended_for:
-    - use: field-scale planting decisions
-      reason: the grid is far too coarse, and the data is fictional.
-      use_instead: real, locally validated agronomic data.
+  usage:
+    intended_uses:
+      - regional screening of climate-driven shifts in crop suitability
+      - comparing suitability between emissions scenarios and horizons
+      - illustrating the full CDH record shape to metadata authors
+    not_recommended_for:
+      - use: field-scale planting decisions
+        reason: the grid is far too coarse, and the data is fictional.
+        use_instead: real, locally validated agronomic data.
 
 climate:
   baseline:

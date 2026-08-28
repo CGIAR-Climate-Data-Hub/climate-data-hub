@@ -97,7 +97,7 @@ const contacts = [...d.contact]
     otherRoles: c.roles.filter((r) => r !== "custodian" && r !== "licensor"),
   }));
 const recordUrl = new URL(`/catalog/${d.id}/`, Astro.site).href;
-const restricted = Boolean(d.access && d.access !== "open");
+const restricted = Boolean(d.access && d.access !== "public");
 const crsHref =
   d.spatial?.crs && /^EPSG:\d+$/.test(d.spatial.crs)
     ? `https://epsg.io/${d.spatial.crs.split(":")[1]}`
@@ -431,21 +431,32 @@ const jsonLd = datasetJsonLd(
             </div>
           )}
 
-        {d.cdh && d.cdh.not_recommended_for.length > 0 && (
+        {d.cdh && d.cdh.usage.intended_uses.length > 0 && (
+            <div>
+              <h2>Intended uses</h2>
+              <ul class="uses">
+                {d.cdh.usage.intended_uses.map((u) => (
+                  <li>{u}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+        {d.cdh && d.cdh.usage.not_recommended_for.length > 0 && (
             <div>
               <h2>Not recommended for</h2>
               <div class="warn-cards">
-                {d.cdh.not_recommended_for.map((n) => (
+                {d.cdh.usage.not_recommended_for.map((n) => (
                   <div class="warn-card">
-                    <b>{humanize(n.use)}</b>
+                    <b>{n.use}</b>
                     {n.reason && (
                       <p>
-                        <b>Why:</b> {humanize(n.reason)}
+                        <b>Why:</b> {n.reason}
                       </p>
                     )}
                     {n.use_instead && (
                       <p class="instead">
-                        <b>Use instead:</b> {humanize(n.use_instead)}
+                        <b>Use instead:</b> {n.use_instead}
                       </p>
                     )}
                   </div>
@@ -764,7 +775,6 @@ const jsonLd = datasetJsonLd(
                       <dd>
                         {r.label
                           ?? [r.value, r.unit].filter(Boolean).join(" ")}
-                        {r.note && <div class="fact-sub">{r.note}</div>}
                       </dd>
                     </>
                   ))}
@@ -1617,6 +1627,20 @@ article ul {
   flex-direction: column;
   gap: 10px;
   margin-top: var(--space-3);
+}
+
+.uses {
+  padding-left: 1.2em;
+  font-size: var(--font-size-5);
+  line-height: 1.55;
+  color: var(--text-soft);
+}
+
+/* Records write these as lowercase prose; capitalise in CSS rather than
+   running them through humanize(), which is for vocab slugs */
+.uses li::first-letter,
+.warn-card > b::first-letter {
+  text-transform: uppercase;
 }
 
 .warn-card {

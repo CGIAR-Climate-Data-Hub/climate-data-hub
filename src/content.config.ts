@@ -5,7 +5,7 @@ import { WIKI_SECTIONS } from "./lib/collections";
 import { notebooks } from "./lib/notebooks";
 import { records } from "./lib/records";
 import { skills as skillsLoader } from "./lib/skills";
-import { CATALOG_REPO, SKILLS_REPO } from "./site.config";
+import { CATALOG_REPO, SCHEMA_SERIES, SKILLS_REPO } from "./site.config";
 
 const tutorialSchema = z.object({
   title: z.string(),
@@ -151,7 +151,6 @@ const asset = z.object({
   media_type: z.string().optional(),
   file_size: z.string().optional(),
   nodata: z.union([z.string(), z.number()]).optional(),
-  roles: z.array(z.string()).default([]),
 });
 
 const catalog = defineCollection({
@@ -161,6 +160,9 @@ const catalog = defineCollection({
   }),
   schema: z
     .object({
+      cdh_schema_version: z
+        .string()
+        .startsWith(`${SCHEMA_SERIES}.`, `site renders CDH ${SCHEMA_SERIES}.x`),
       id: z.string(),
       title: z.string(),
       description: z.string(),
@@ -175,7 +177,8 @@ const catalog = defineCollection({
         .optional(),
       license: z.string(),
       resource_type: z.string(),
-      // Absent means open; anything else flags the header + Access section
+      // "public" (the default) is open; restricted/non-public flag the
+      // header + Access section
       access: z.string().optional(),
       access_note: z.string().optional(),
       doi: z.string().optional(),
@@ -211,7 +214,6 @@ const catalog = defineCollection({
                 unit: z.string().optional(),
                 value: z.number().optional(),
                 label: z.string().optional(),
-                note: z.string().optional(),
               }),
             )
             .default([]),
@@ -254,15 +256,20 @@ const catalog = defineCollection({
       cdh: z
         .object({
           domain: z.array(z.string()).default([]),
-          not_recommended_for: z
-            .array(
-              z.object({
-                use: z.string(),
-                reason: z.string().optional(),
-                use_instead: z.string().optional(),
-              }),
-            )
-            .default([]),
+          usage: z
+            .object({
+              intended_uses: z.array(z.string()).default([]),
+              not_recommended_for: z
+                .array(
+                  z.object({
+                    use: z.string(),
+                    reason: z.string().optional(),
+                    use_instead: z.string().optional(),
+                  }),
+                )
+                .default([]),
+            })
+            .prefault({}),
         })
         .optional(),
       // Climate extension: modelling methods behind projection datasets

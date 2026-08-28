@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=../../spec/schemas/profiles/cdh.schema.json
-"$schema": https://cgiar-climate-data-hub.github.io/cdh-metadata-standard/v0.1.0/schemas/profiles/cdh.schema.json
+"$schema": https://cgiar-climate-data-hub.github.io/cdh-metadata-standard/v0.3.0/schemas/profiles/cdh.schema.json
 #
 # ============================================================================
 # SAMPLE RECORD - NOT REAL DATA.
@@ -9,13 +9,13 @@
 # Snapshots are never edited again and are surfaced only through the version
 # chain, not catalog listings (see standard.md section 4.7).
 # ============================================================================
-cdh_schema_version: "v0.1.0"
+cdh_schema_version: "v0.3.0"
 extensions:
-  - https://cgiar-climate-data-hub.github.io/cdh-metadata-standard/v0.1.0/extensions/cdh/schema.json
-  - https://cgiar-climate-data-hub.github.io/cdh-metadata-standard/v0.1.0/extensions/climate/schema.json
-  - https://cgiar-climate-data-hub.github.io/cdh-metadata-standard/v0.1.0/extensions/datacube/schema.json
-  - https://cgiar-climate-data-hub.github.io/cdh-metadata-standard/v0.1.0/extensions/classification/schema.json
-  - https://cgiar-climate-data-hub.github.io/cdh-metadata-standard/v0.1.0/extensions/agriculture/schema.json
+  - https://cgiar-climate-data-hub.github.io/cdh-metadata-standard/v0.3.0/extensions/cdh/schema.json
+  - https://cgiar-climate-data-hub.github.io/cdh-metadata-standard/v0.3.0/extensions/climate/schema.json
+  - https://cgiar-climate-data-hub.github.io/cdh-metadata-standard/v0.3.0/extensions/datacube/schema.json
+  - https://cgiar-climate-data-hub.github.io/cdh-metadata-standard/v0.3.0/extensions/classification/schema.json
+  - https://cgiar-climate-data-hub.github.io/cdh-metadata-standard/v0.3.0/extensions/agriculture/schema.json
 
 id: example-crop-suitability-v1
 title: "Example Gridded Crop Suitability Projections (SAMPLE - NOT REAL DATA), v1.0"
@@ -78,7 +78,7 @@ dimensions:
   - name: time
     type: temporal
     description: Projection horizon (reference year).
-    values: [2030, 2050]
+    values: ["2030", "2050"]
     step: P20Y
   - name: crop
     type: crop

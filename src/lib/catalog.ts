@@ -161,7 +161,7 @@ export function summarize(entry: CollectionEntry<"catalog">) {
     source: licensor(d),
     // Distribution formats of the data assets, as facet tokens
     formats: [...new Set(d.data.flatMap((a) => formatId(a.media_type) ?? []))],
-    access: d.access && d.access !== "open" ? "restricted" : "open",
+    access: d.access && d.access !== "public" ? "restricted" : "open",
     keywords: d.keywords.map((k) => (typeof k === "string" ? k : k.term)),
     coverage: d.spatial?.geography.map(geoLabel).join(", ") || undefined,
     // Short form for card meta rows — full label lives on the detail page
@@ -427,7 +427,8 @@ export function datasetMd(
     d.cdh
       && section("Intended use", [
         d.cdh.domain.length && `Domains: ${d.cdh.domain.join(", ")}`,
-        ...d.cdh.not_recommended_for.map((n) =>
+        ...d.cdh.usage.intended_uses.map((u) => `Intended: ${u}`),
+        ...d.cdh.usage.not_recommended_for.map((n) =>
           dash(
             `Not recommended: ${n.use}`,
             n.reason,
@@ -527,7 +528,7 @@ export function datasetJsonLd(
     ...(d.doi && { sameAs: `https://doi.org/${d.doi}` }),
     license: licenseUrl(d.license) ?? d.license,
     // "Free" in the Dataset Search sense: openly retrievable, no gate
-    isAccessibleForFree: (d.access ?? "open") === "open",
+    isAccessibleForFree: (d.access ?? "public") === "public",
     ...(d.access_note && { conditionsOfAccess: d.access_note }),
     ...(d.version && { version: d.version }),
     ...(d.created && { dateCreated: d.created }),
