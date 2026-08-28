@@ -14,7 +14,7 @@ updated: 2026-07-17
 ---
 
 The Hub is one quality-assured home for climate data across CGIAR: every
-dataset is harmonised to the same metadata standard, openly licensed, and
+dataset is harmonized to the same metadata standard, openly licensed, and
 published in cloud-native formats. In practice that means you find data one
 way, judge it one way, and access it one way — whatever the dataset, whatever
 your tools. This guide walks that path once, without assuming you write code.

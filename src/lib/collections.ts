@@ -11,16 +11,13 @@ export async function allTutorials() {
 }
 
 export const WIKI_SECTIONS = [
-  "Standards",
+  // Sidebar groups render in this order — hub-level docs lead
+  "The Hub",
+  "Data standards",
   "Methods",
   "Concepts",
-  "Governance",
   "Reference",
 ] as const;
-
-export const WIKI_SECTION_LABELS: Partial<
-  Record<(typeof WIKI_SECTIONS)[number], string>
-> = { Standards: "Data standards" };
 
 export function groupWikis(entries: CollectionEntry<"wikis">[]) {
   return WIKI_SECTIONS.map((section) => ({

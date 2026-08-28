@@ -1,11 +1,7 @@
 ---
 // Book-like "Contents" nav shared by the wiki landing and articles.
 import { getCollection } from "astro:content";
-import {
-  groupWikis,
-  WIKI_SECTION_LABELS,
-  WIKI_SECTIONS,
-} from "@/lib/collections";
+import { groupWikis } from "@/lib/collections";
 import { treeUrl } from "@/lib/github";
 import { SITE_REPO } from "@/site.config";
 
@@ -17,33 +13,24 @@ const { activeId } = Astro.props;
 
 // Sections open by default — remove one to start it collapsed. The section
 // holding the current page always opens regardless.
-const DEFAULT_OPEN = new Set(["Standards", "Methods", "Concepts"]);
-
-// Planned-but-unwritten pages stay visible so the wiki reads as a growing book
-const SOON: Record<string, string[]> = {
-  Standards: ["CF Conventions", "ISO 19115"],
-  Reference: ["Glossary"],
-};
+const DEFAULT_OPEN = new Set(["Data standards", "Methods", "Concepts"]);
 
 type Item = { title: string; href?: string; id?: string; soon?: boolean };
 
-const grouped = groupWikis(await getCollection("wikis"));
-const nav = WIKI_SECTIONS.map((section) => {
-  const entries = grouped.find((g) => g.section === section)?.entries ?? [];
-  const items: Item[] = [
-    ...entries.map((e) => ({
+const nav = groupWikis(await getCollection("wikis")).map((group) => ({
+  label: group.section,
+  items: group.entries.map(
+    (e): Item => ({
       title: e.data.title,
-      href: `/wikis/${e.id}/`,
+      href: e.data.soon ? undefined : `/wikis/${e.id}/`,
       id: e.id,
-    })),
-    ...(SOON[section] ?? []).map((title) => ({ title, soon: true })),
-  ];
-  return {
-    label: WIKI_SECTION_LABELS[section] ?? section,
-    items,
-    open: DEFAULT_OPEN.has(section) || entries.some((e) => e.id === activeId),
-  };
-}).filter((g) => g.items.length > 0);
+      soon: e.data.soon,
+    }),
+  ),
+  open:
+    DEFAULT_OPEN.has(group.section)
+    || group.entries.some((e) => e.id === activeId),
+}));
 ---
 
 <nav aria-label="Wiki contents" data-pagefind-ignore>

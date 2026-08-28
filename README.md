@@ -9,6 +9,28 @@ bun run build   # static build to dist/
 bun run check   # lint + format (Biome)
 ```
 
+### Architecture blueprint as a PDF
+
+`src/content/wikis/architecture.md` is the technical blueprint deliverable. It
+renders on the site at `/wikis/architecture/`, and
+[Quarto](https://quarto.org) turns the same file into a PDF:
+
+```sh
+quarto render src/content/wikis/architecture.md --to typst \
+  -o architecture.pdf --metadata validate-yaml=false
+```
+
+Typst ships with Quarto, so this needs no LaTeX. The `--metadata` flag is
+needed because Quarto type-checks its own `section:` key, which the site uses
+for the wiki sidebar group — passing it on the command line keeps print
+concerns out of the content file. If the PDF grows its own options (a printed
+date, `toc`, a template), put them in a `print.yml` and pass
+`--metadata-file print.yml` instead; Quarto doesn't read the site's `updated:`
+field.
+
+Keep diagrams as image references (`![…](./diagram.svg)`) rather than inline
+`<svg>` — Pandoc drops raw HTML on the way to PDF — and use absolute URLs for
+links you want clickable in print.
 ### Lighthouse CI
 
 `bun run lh` builds the site with the bundled example records and skills,

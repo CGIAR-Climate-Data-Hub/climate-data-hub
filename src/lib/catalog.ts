@@ -437,7 +437,7 @@ export function datasetMd(
         ),
       ]),
     c
-      && section("Climate modelling", [
+      && section("Climate modeling", [
         c.mip_era && `MIP era: ${c.mip_era}`,
         c.models.length && `Models: ${c.models.join(", ")}`,
         c.scenarios.length && `Scenarios: ${c.scenarios.join(", ")}`,

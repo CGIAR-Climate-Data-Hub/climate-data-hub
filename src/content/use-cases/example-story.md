@@ -5,7 +5,7 @@
 # ── dataset pages.
 title: "[Example — replace me] How [partner] used Hub data in [country]"
 kind: Impact # Impact | Adoption
-partner: "[Partner or programme name]"
+partner: "[Partner or program name]"
 sector: "[Sector, e.g. Livestock]"
 country: "[Country]"
 description: >

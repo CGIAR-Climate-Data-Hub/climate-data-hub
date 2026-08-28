@@ -46,6 +46,8 @@ const wikis = defineCollection({
     updated: z.coerce.date(),
     // Sidebar position within a section; unordered entries sort alphabetically after
     order: z.number().optional(),
+    // Planned but unwritten: listed in the sidebar, no page generated
+    soon: z.boolean().default(false),
   }),
 });
 
