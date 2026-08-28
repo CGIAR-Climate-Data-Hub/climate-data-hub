@@ -19,5 +19,8 @@ export const SKILLS_SITE = `${SITE_URL}/skills/`;
 // Metadata schemas, extensions, and controlled vocabularies
 export const STANDARD_REPO = "CGIAR-Climate-Data-Hub/cdh-metadata-standard";
 
+// CDH standard release the catalog page is written against.
+export const SCHEMA_SERIES = "v0.3";
+
 // org/repo slug of the catalog metadata repo (record source + data issues)
 export const CATALOG_REPO = "CGIAR-Climate-Data-Hub/cdh-catalog";
