@@ -23,7 +23,7 @@
     "@astrojs/markdown-satteri": "0.3.8",
     "@astrojs/mdx": "7.0.8",
     "@astrojs/sitemap": "^3.7.3",
-    "astro": "7.2.5",
+    "astro": "7.3.1",
     "astro-pagefind": "^2.0.1",
     "modern-tar": "0.8.4",
     "typescript": "6.0.3"
