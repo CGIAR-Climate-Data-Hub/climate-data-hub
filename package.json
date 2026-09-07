@@ -22,7 +22,7 @@
     "@astrojs/check": "0.9.10",
     "@astrojs/markdown-satteri": "0.3.8",
     "@astrojs/mdx": "7.0.8",
-    "@astrojs/sitemap": "^3.7.3",
+    "@astrojs/sitemap": "^3.7.4",
     "astro": "7.2.5",
     "astro-pagefind": "^2.0.1",
     "modern-tar": "0.8.4",
